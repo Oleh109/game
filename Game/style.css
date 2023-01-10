@@ -1,0 +1,260 @@
+@import url("reset.css");
+
+body {
+    font-family: consolas, monospace;
+    color: #fff;
+    background: url("../img/bg.jpg") center / cover no-repeat;
+}
+
+.wrapper {
+    min-height: 100%;
+    overflow: clip;
+    position: relative;
+}
+
+.game {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: url('../img/run.png') 24 24, auto;
+}
+
+.game:hover .game__win {
+    animation: win 10s steps(1) forwards;
+}
+
+.game:hover .game__counter::after {
+    animation: timer_1 60s steps(60) forwards;   
+}
+
+.game:hover .game__result span::after {
+    animation: timer_2 60s steps(60) forwards;
+}
+
+@keyframes win {
+    0% {
+    }
+    100% {
+        visibility: visible;
+    }
+}
+
+@keyframes timer_1 {
+    0% {
+        text-indent: -300ch;
+    }
+    50% {
+        color: #dac924;
+    }
+    100% {
+        color: #ff7b50;
+        text-indent: 0ch;
+    }
+}
+
+@keyframes timer_2 {
+    0% {
+        text-indent: 0ch;
+    }
+    50% {
+        color: #dac924;
+    }
+    100% {
+        color: #ff7b50;
+        text-indent: -300ch;
+    }
+}
+
+.game__body,
+.game__items {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.game__body::before,
+.game__body::after,
+.game__items::before,
+.game__items::after {
+    content: '';
+    pointer-events: all;
+    width: 33.333vw;
+    height: 33.333vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: inline-block;
+    outline: 0.3125rem dashed;
+}
+
+.game__body::before {
+    background-color: #dac924;
+    color: #dac924;
+    animation: fly_1 13s infinite;
+}
+
+.game__body::after {
+    background-color: #009ef3;
+    color: #009ef3;
+    animation: fly_2 17s infinite;
+}
+
+.game__items::before {
+    background-color: #7a956b;
+    color: #7a956b;
+    animation: fly_3 15s infinite;
+}
+
+.game__items::after {
+    background-color: #ff7b50;
+    color: #ff7b50;
+    animation: fly_4 20s infinite;
+}
+
+@keyframes fly_1 {
+    25% {
+        transform: translate(66.667vw, 0vh);
+    }
+    50% {
+        transform: translate(66.667vw, 66.667vh);
+    }
+    75% {
+        transform: translate(0vw, 66.667vh);
+    }
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes fly_2 {
+    25% {
+        transform: translate(0vw, 66.667vh);
+    }
+    50% {
+        transform: translate(66.667vw, 0vh);
+    }
+    75% {
+        transform: translate(66.667vw, 66.667vh);
+    }
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes fly_3 {
+    25% {
+        transform: translate(66.667vw, 0vh);
+    }
+    50% {
+        transform: translate(0vw, 66.667vh);
+    }
+    75% {
+        transform: translate(66.667vw, 66.667vh);
+    }
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes fly_4 {
+    25% {
+        transform: translate(66.667vw, 0vh);
+    }
+    50% {
+        transform: translate(0vw, 66.667vh);
+    }
+    75% {
+        transform: translate(66.667vw, 66.667vh);
+    }
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+.game__body:hover::before,
+.game__body:hover::after,
+.game__body:hover .game__items::before,
+.game__body:hover .game__items::after {
+    display: none;
+}
+
+.game__body:hover .game__items {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    background-color: #262c37;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    pointer-events: all;
+}
+.game__body:hover .game__result {
+    visibility: visible;
+}
+
+.game__body:hover .game__counter::after,
+.game__body:hover .game__result span::after {
+    animation-play-state: paused;
+}
+
+.game__result {
+    font-size: 2.5rem;
+    visibility: hidden;
+}
+
+.game__result span {
+    font-size: 2.5rem;
+    width: 6.8125rem;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    color: #7a956b;
+}
+
+.game__counter {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    width: 4.5rem;
+    font-size: 1.625rem;
+    overflow: hidden;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.game__counter::after,
+.game__result span::after {
+    display: block;
+    content: "00:0000:0100:0200:0300:0400:0500:0600:0700:0800:0900:1000";
+}
+
+.game__win {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #262c37;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    color: #7a956b;
+    visibility: hidden;
+}
